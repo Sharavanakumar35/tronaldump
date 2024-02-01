@@ -238,6 +238,10 @@ input::placeholder {
     color: rgba(238, 238, 238, 0.8);
     font-weight: normal;
   }
+
+  .quote-card:hover {
+    transform: scale(1.05);
+  }
   @media (max-width: 640px) {
     .quote-card:after {
       font-size: 22em;
