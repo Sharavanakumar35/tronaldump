@@ -112,7 +112,7 @@ searchAction = async (api_url) => {
 for (let i = 0; i < tags.length; i++) {
     tags[i].addEventListener('click', () => {
         console.log(tags[i].textContent);
-        const tag_url = `https://www.tronalddump.io/search/quote?query=${tags[i].textContent}`;
+        const tag_url = `https://www.tronalddump.io/search/quote?tag=${tags[i].textContent}`;
         searchAction(tag_url);
     });
 }
