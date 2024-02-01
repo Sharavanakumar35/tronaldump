@@ -1,7 +1,29 @@
 const search = document.getElementById('search');
 const button = document.getElementById('search-btn');
 
-const tags = document.getElementsByTagName('a');
+(async function allTags() {
+    const res = await fetch('https://www.tronalddump.io/tag');
+    const jsonRes = await res.json();
+
+    const tags_ele = document.getElementById('tags');
+
+    const tagsList = jsonRes._embedded.tag.map(eachTag => {
+        const li_tag = document.createElement('li');
+        const a_tag = document.createElement('a');
+        a_tag.innerText = eachTag.value;
+        li_tag.appendChild(a_tag);
+        tags_ele.appendChild(li_tag);
+    })
+
+    const tags = document.getElementsByTagName('a');
+    for (let i = 0; i < tags.length; i++) {
+        tags[i].addEventListener('click', () => {
+            console.log(tags[i].textContent);
+            const tag_url = `https://www.tronalddump.io/search/quote?tag=${tags[i].textContent}`;
+            searchAction(tag_url);
+        });
+    }
+})()
 
 searchAction = async (api_url) => {
     const response = await fetch(api_url);
@@ -107,14 +129,6 @@ searchAction = async (api_url) => {
     renderQuotes(pageNumber);
     renderPaginator();
 
-}
-
-for (let i = 0; i < tags.length; i++) {
-    tags[i].addEventListener('click', () => {
-        console.log(tags[i].textContent);
-        const tag_url = `https://www.tronalddump.io/search/quote?tag=${tags[i].textContent}`;
-        searchAction(tag_url);
-    });
 }
 
 button.addEventListener('pointerdown', () => {
